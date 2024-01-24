@@ -18,4 +18,12 @@ triangulation de Delaunator et sur l'algorithme de calcul des ombres et de la lu
 une modélisation 2D avec une interactivité avec l'utilisateur qui pourra déplacer avec sa souris la lumière afin
 de voir l'effet de la lumière et la triangulation de cette dernière. 
 
+
 - _**Semaine 2 :**_ 
+A cause de la neige, nous avons perdu 1 semaine de travail, nous n'avons pas du tout avancés
+
+
+- _**Semaine 3 :**_ 
+Nous avons parlé de la conception de notre projet, et de la manière dont nous allons procéder.
+On a donc commencé par faire le début des tests pour quelques fonctions de l'algorithme, notamment le calcul d'un vecteur ou de sa norme. 
+Ensuite, nous allons continuer de coder l'algorithme en 1er avant de coder l'affichage en 2D de ce dernier. 
