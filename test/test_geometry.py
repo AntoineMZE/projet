@@ -1,6 +1,6 @@
 import unittest
 import math
-from src.geometry import calculate_vector
+from src.geometry import *
 
 
 
