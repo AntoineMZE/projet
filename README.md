@@ -7,8 +7,8 @@ Projet Python S6 de Mazure Antoine et Flahaut Steeven
 - Free Topic
 - Subject => Visibility with lights and walls with triangulation
 - Style : Interactive 
-- Data Structure : Half Edge and Polygonal 
-- Algorithm : ShadowCasting, RayTracer and Delaunator Triangulation
+- Data Structure : Polygonal 
+- Algorithm : Visibility, Poisson disk
 - Language : Python with pygame 
 
 # Journal
@@ -28,4 +28,8 @@ A cause de la neige, nous avons perdu 1 semaine de travail, nous n'avons pas du 
 - _**Semaine 3 :**_ 
 Nous avons parlé de la conception de notre projet, et de la manière dont nous allons procéder.
 On a donc commencé par faire le début des tests pour quelques fonctions de l'algorithme, notamment le calcul d'un vecteur ou de sa norme. 
-Ensuite, nous allons continuer de coder l'algorithme en 1er avant de coder l'affichage en 2D de ce dernier. 
+Ensuite, nous allons continuer de coder l'algorithme en 1er avant de coder l'affichage en 2D de ce dernier.
+
+- _**Semaine 4 :**_ 
+Nous nous sommes perdus dans le sujet, nous voulions trop en faire avec beaucoup d'algorithmes. On a implementé delaunay alors que ça ne servait pas. 
+Conclusion de la séance : On a très peu avancé, on a du retard. Faire polygon, point, et visibilité pour la séance 5
