@@ -1,5 +1,7 @@
 # Projet S6 Mazure-Flahaut
 
+Projet Python S6 de Mazure Antoine et Flahaut Steeven 
+
 ## Project Choice 
 
 - Free Topic
