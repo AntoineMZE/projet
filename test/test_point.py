@@ -1,5 +1,6 @@
 import unittest
 import math
+from src.point import Point
 
 class MyTestCase(unittest.TestCase):
     def setUp(self) -> None:
