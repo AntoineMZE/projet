@@ -20,6 +20,11 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(self.p1.distance(self.p2), math.sqrt(32))
         self.assertEqual(self.p2.distance(self.p1), math.sqrt(32))
 
+    def test_move_point(self):
+        self.p1.move(5, 0)
+        self.assertEqual(self.p1.x, 5)
+        self.assertEqual(self.p1.y, 0)
+
 
 if __name__ == '__main__':
     unittest.main()
