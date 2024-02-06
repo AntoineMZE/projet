@@ -12,3 +12,6 @@ class Point:
 
     def distance(self, other_point):
         return math.sqrt((other_point.x - self.x) ** 2 + (other_point.y - self.y) ** 2)
+
+    def equals_to(self, other_point):
+        return self.x == other_point.x and self.y == other_point.y
