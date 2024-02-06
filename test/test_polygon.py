@@ -22,6 +22,11 @@ class MyTestCase(unittest.TestCase):
         self.polygon1.add_points([self.p5])
         self.assertEqual(self.polygon1.get_points(), [self.p1, self.p2, self.p3, self.p4, self.p5])
 
+    def test_supp_points(self):
+        self.polygon1.add_points([self.p4, self.p5])
+        self.assertEqual(self.polygon1.get_points(), [self.p1, self.p2, self.p3, self.p4, self.p5])
+        self.polygon1.supp_points([self.p5])
+        self.assertEqual(self.polygon1.get_points(), [self.p1, self.p2, self.p3, self.p4])
 
 if __name__ == '__main__':
     unittest.main()

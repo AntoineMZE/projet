@@ -11,3 +11,8 @@ class Polygon:
         for point in points_list:
             if point not in self.get_points():
                 self.points.append(point)
+
+    def supp_points(self, points_list):
+        for point in points_list:
+            if point in self.get_points():
+                self.points.remove(point)
