@@ -26,10 +26,10 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(self.p1.x, 5)
         self.assertEqual(self.p1.y, 0)
 
-    def test_equal(self):
-        self.assertFalse(self.p1.equal(self.p2))
+    def test_equals_to(self):
+        self.assertFalse(self.p1.equals_to(self.p2))
         p3 = Point(7.0, 4.0)
-        self.assertTrue(self.p1.equal(p3))
+        self.assertTrue(self.p1.equals_to(p3))
 
 
 if __name__ == '__main__':
