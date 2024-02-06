@@ -1,6 +1,6 @@
 import unittest
 from src.point import Point
-from src.polygon import Polygone
+from src.polygon import Polygon
 
 
 class MyTestCase(unittest.TestCase):
@@ -11,17 +11,16 @@ class MyTestCase(unittest.TestCase):
         self.p4 = Point(3.0, 3.0)
         self.p5 = Point(3.0, 0.0)
         self.list_of_3points = [self.p1, self.p2, self.p3]
-        self.polygone1 = Polygone(self.list_of_3points)
+        self.polygon1 = Polygon(self.list_of_3points)
 
     def test_get_points(self):
-        self.assertEqual(self.polygone1.get_points, self.list_of_3points)
+        self.assertEqual(self.polygon1.get_points(), self.list_of_3points)
 
     def test_add_points(self):
-        self.polygone1.add_points([self.p4, self.p5])
-        self.assertEqual(self.polygone1.points, [self.p1, self.p2, self.p3, self.p4, self.p5])
-        p6 = Point(3.0, 0.0)
-        #self.polygone1.add_points([p6])
-        #self.assertEqual(self.polygone1.points, [self.p1, self.p2, self.p3, self.p4, self.p5])
+        self.polygon1.add_points([self.p4, self.p5])
+        self.assertEqual(self.polygon1.get_points(), [self.p1, self.p2, self.p3, self.p4, self.p5])
+        self.polygon1.add_points([self.p5])
+        self.assertEqual(self.polygon1.get_points(), [self.p1, self.p2, self.p3, self.p4, self.p5])
 
 
 if __name__ == '__main__':

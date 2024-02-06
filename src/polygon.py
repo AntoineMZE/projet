@@ -1,4 +1,4 @@
-class Polygone:
+class Polygon:
 
     def __init__(self, points):
         self.points = points[:]
@@ -9,6 +9,5 @@ class Polygone:
 
     def add_points(self, points_list):
         for point in points_list:
-            for polygone_points in self.points:
-                if point.equals_to(polygone_points):
-                    self.points.append(point)
+            if point not in self.get_points():
+                self.points.append(point)
