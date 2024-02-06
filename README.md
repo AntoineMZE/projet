@@ -33,3 +33,6 @@ Ensuite, nous allons continuer de coder l'algorithme en 1er avant de coder l'aff
 - _**Semaine 4 :**_ 
 Nous nous sommes perdus dans le sujet, nous voulions trop en faire avec beaucoup d'algorithmes. On a implementé delaunay alors que ça ne servait pas. 
 Conclusion de la séance : On a très peu avancé, on a du retard. Faire polygon, point, et visibilité pour la séance 5
+
+
+- _**Semaine 5 :**_ 
