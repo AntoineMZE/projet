@@ -2,6 +2,7 @@ import unittest
 import math
 from src.point import Point
 
+
 class MyTestCase(unittest.TestCase):
     def setUp(self) -> None:
         self.p1 = Point(7.0, 4.0)
@@ -24,6 +25,11 @@ class MyTestCase(unittest.TestCase):
         self.p1.move(5, 0)
         self.assertEqual(self.p1.x, 5)
         self.assertEqual(self.p1.y, 0)
+
+    def test_equal(self):
+        self.assertFalse(self.p1.equal(self.p2))
+        p3 = Point(7.0, 4.0)
+        self.assertTrue(self.p1.equal(p3))
 
 
 if __name__ == '__main__':
