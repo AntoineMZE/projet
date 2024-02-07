@@ -8,9 +8,10 @@ class Modelisation:
         pygame.init()
         self.running = True
         self.screen = pygame.display.set_mode((800, 800))
+        pygame.display.set_caption("Modélisation algorithme de visibilité")
         self.p1 = point.Point(10, 20)
         self.p2 = point.Point(600, 600)
-        self.p3 = point.Point(300, 200)
+        self.p3 = point.Point(400, 750)
         self.point_list = [(self.p1.x, self.p1.y), (self.p2.x, self.p2.y), (self.p3.x, self.p3.y)]
         self.t1 = polygon.Polygon(self.point_list)
 
