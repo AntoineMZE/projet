@@ -6,6 +6,7 @@ import polygon
 class Modelisation:
     def __init__(self):
         pygame.init()
+        self.clock = pygame.time.Clock()
         self.running = True
         self.screen = pygame.display.set_mode((800, 800))
         pygame.display.set_caption("Modélisation algorithme de visibilité")
@@ -14,6 +15,8 @@ class Modelisation:
         self.p3 = point.Point(400, 750)
         self.point_list = [(self.p1.x, self.p1.y), (self.p2.x, self.p2.y), (self.p3.x, self.p3.y)]
         self.t1 = polygon.Polygon(self.point_list)
+        self.cercle = pygame.image.load('image/white-circle-free-png.png').convert()
+        self.rect= self.cercle.get_rect()
 
     def number_of_points(self):
         # Ici sera mis à jour le nombre de cotes du polygon chosis par le joueur
@@ -32,13 +35,19 @@ class Modelisation:
         while self.running:
             # Ici tant qu'on a pas appuyé sur la croix pour fermé la fenêtre, on crée un polygon avec une
             # liste de points définies dans init. On update ensuite la fenêtre pour que cela s'affiche correctement
-            pygame.draw.polygon(self.screen, color="white", points=self.t1.get_points())
+            # pygame.draw.polygon(self.screen, color="white", points=self.t1.get_points())
             pygame.display.update()
             # Cette boucle for permet de prendre tous les evenements de pygame, et nous permet
             # de sélectionner celui qu'on a besoin pour une action. Ici pygame.QUIT sert à enlever la fenêtre
             for event in pygame.event.get():
+                if event.type == pygame.MOUSEMOTION :
+                    #self.screen.blit(self.cercle, (400,400))
+                    self.screen.blit(self.cercle, event.rel)
+                    pos = event.pos
+                    print("x = {}, y = {}".format(pos[0], pos[1]))
                 if event.type == pygame.QUIT:
                     self.running = False
+        self.clock.tick(60)
 
 
 pygame.quit()
