@@ -29,8 +29,12 @@ class Modelisation:
     def draw(self):
         # C'est ici que se passe toute la modélisation sur la fenêtre de jeu
         while self.running:
+            # Ici tant qu'on a pas appuyé sur la croix pour fermé la fenêtre, on crée un polygon avec une
+            # liste de points définies dans init. On update ensuite la fenêtre pour que cela s'affiche correctement
             pygame.draw.polygon(self.screen, color="white", points=self.t1.get_points())
             pygame.display.update()
+            # Cette boucle for permet de prendre tous les evenements de pygame, et nous permet
+            # de sélectionner celui qu'on a besoin pour une action. Ici pygame.QUIT sert à enlever la fenêtre
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
