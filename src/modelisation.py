@@ -15,8 +15,8 @@ class Modelisation:
         self.p3 = point.Point(400, 750)
         self.point_list = [(self.p1.x, self.p1.y), (self.p2.x, self.p2.y), (self.p3.x, self.p3.y)]
         self.t1 = polygon.Polygon(self.point_list)
-        self.cercle = pygame.image.load('image/white-circle-free-png.png').convert()
-        self.rect= self.cercle.get_rect()
+        self.cercle = pygame.image.load('image/white-circle-free-png.png').convert_alpha()
+        self.rect = self.cercle.get_rect()
 
     def number_of_points(self):
         # Ici sera mis à jour le nombre de cotes du polygon chosis par le joueur
@@ -31,22 +31,29 @@ class Modelisation:
         pass
 
     def draw(self):
+        cercle_pos = pygame.Vector2(400, 400)
         # C'est ici que se passe toute la modélisation sur la fenêtre de jeu
         while self.running:
+            # efface l'ecran
+            self.screen.fill((0, 0, 0))
             # Ici tant qu'on a pas appuyé sur la croix pour fermé la fenêtre, on crée un polygon avec une
             # liste de points définies dans init. On update ensuite la fenêtre pour que cela s'affiche correctement
-            # pygame.draw.polygon(self.screen, color="white", points=self.t1.get_points())
-            pygame.display.update()
+            pygame.draw.polygon(self.screen, color="white", points=self.t1.get_points())
             # Cette boucle for permet de prendre tous les evenements de pygame, et nous permet
             # de sélectionner celui qu'on a besoin pour une action. Ici pygame.QUIT sert à enlever la fenêtre
             for event in pygame.event.get():
-                if event.type == pygame.MOUSEMOTION :
-                    #self.screen.blit(self.cercle, (400,400))
-                    self.screen.blit(self.cercle, event.rel)
+                # Ici on bouge le cercle avec le déplacement de la souris près du cercle
+                if event.type == pygame.MOUSEMOTION:
+                    # self.screen.blit(self.cercle, (400,400))
+                    cercle_pos = event.pos
                     pos = event.pos
                     print("x = {}, y = {}".format(pos[0], pos[1]))
                 if event.type == pygame.QUIT:
                     self.running = False
+
+            self.screen.blit(self.cercle, cercle_pos)
+
+            pygame.display.update()
         self.clock.tick(60)
 
 
