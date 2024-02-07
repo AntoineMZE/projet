@@ -21,6 +21,9 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(self.polygon1.get_points(), [self.p1, self.p2, self.p3, self.p4, self.p5])
         self.polygon1.add_points([self.p5])
         self.assertEqual(self.polygon1.get_points(), [self.p1, self.p2, self.p3, self.p4, self.p5])
+        p6 = Point(3.0, 0.0)
+        self.polygon1.add_points([p6])
+        self.assertEqual(self.polygon1.get_points(), [self.p1, self.p2, self.p3, self.p4, self.p5])
 
     def test_supp_points(self):
         self.polygon1.add_points([self.p4, self.p5])
