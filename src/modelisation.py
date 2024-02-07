@@ -9,8 +9,12 @@ class Modelisation:
         self.running = True
         self.screen = pygame.display.set_mode((800, 800))
         self.p1 = point.Point(10, 20)
-        self.p2 = point.Point(300, 600)
-        self.p3 = point.Point(100, 250)
+        self.p2 = point.Point(600, 600)
+        self.p3 = point.Point(300, 200)
+        self.point_list = [(self.p1.x, self.p1.y), (self.p2.x, self.p2.y), (self.p3.x, self.p3.y)]
+        self.t1 = polygon.Polygon(self.point_list)
+
+
 
     def draw(self):
 
@@ -18,6 +22,7 @@ class Modelisation:
             pygame.Surface.set_at(self.screen, (self.p1.x, self.p1.y), "white")
             pygame.Surface.set_at(self.screen, (self.p2.x, self.p2.y), "white")
             pygame.Surface.set_at(self.screen, (self.p3.x, self.p3.y), "white")
+            pygame.draw.polygon(self.screen, color="white", points=self.t1.get_points())
             pygame.display.update()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
