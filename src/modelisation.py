@@ -14,14 +14,21 @@ class Modelisation:
         self.point_list = [(self.p1.x, self.p1.y), (self.p2.x, self.p2.y), (self.p3.x, self.p3.y)]
         self.t1 = polygon.Polygon(self.point_list)
 
+    def number_of_points(self):
+        # Ici sera mis à jour le nombre de cotes du polygon chosis par le joueur
+        pass
 
+    def polygon_value(self):
+        # Ici sera créé le polygon en fonction de son nombre de coté
+        pass
+
+    def create_polygon(self):
+        # Ici sera créé un nombre de polygon équidistant les uns des autres avec le bon nombre de côté
+        pass
 
     def draw(self):
-
+        # C'est ici que se passe toute la modélisation sur la fenêtre de jeu
         while self.running:
-            pygame.Surface.set_at(self.screen, (self.p1.x, self.p1.y), "white")
-            pygame.Surface.set_at(self.screen, (self.p2.x, self.p2.y), "white")
-            pygame.Surface.set_at(self.screen, (self.p3.x, self.p3.y), "white")
             pygame.draw.polygon(self.screen, color="white", points=self.t1.get_points())
             pygame.display.update()
             for event in pygame.event.get():
