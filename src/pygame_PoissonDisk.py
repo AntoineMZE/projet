@@ -35,7 +35,3 @@ class PygamePoissonDisk:
     @staticmethod
     def close():
         pygame.quit()
-
-
-class PygameRenderer:
-    pass
