@@ -1,5 +1,5 @@
 import math
-from typing import Tuple, Any
+from typing import Tuple, Any, Dict
 
 import pygame
 import pygame_menu
@@ -9,7 +9,6 @@ from input_manager import InputManager
 from src import poisson_disk
 from src.pygame_PoissonDisk import PygamePoissonDisk
 from src.poisson_disk import PoissonDisk
-
 
 
 class Modelisation:
@@ -22,9 +21,9 @@ class Modelisation:
         self.width = self.screen.get_width()
         self.height = self.screen.get_height()
         pygame.display.set_caption("Modélisation algorithme de visibilité")
-        self.p1 = point.Point(10, 20)
-        self.p2 = point.Point(200, 100)
-        self.p3 = point.Point(150, 250)
+        self.p1 = point.Point(100, 100)
+        self.p2 = point.Point(50, 200)
+        self.p3 = point.Point(150, 200)
         self.point_list = [(self.p1.x, self.p1.y), (self.p2.x, self.p2.y), (self.p3.x, self.p3.y)]
         self.t1 = polygon.Polygon(self.point_list)
         self.cercle = pygame.image.load('image/white-circle-free-png.png').convert_alpha()
@@ -35,13 +34,24 @@ class Modelisation:
     def game_start(self):
         return self.running
 
-    def number_of_points(self, selected: Tuple, value: Any) -> None:
+    def number_of_points(self, selected: Tuple, value: Any) -> [str, int]:
         # Ici sera mis à jour le nombre de cotes du polygon chosis par le joueur
         print(f'Le nombre de cotés du polygon sera de {selected[0]} ({value})')
+        select = selected[0]
+        val = value
+        return select, val
 
-    def polygon_value(self):
+    def polygon_value(self, selected: Tuple, value: Any) -> None:
         # Ici sera créé le polygon en fonction de son nombre de coté
-        pass
+        number = self.number_of_points(selected, value)
+        print(number)
+        if number[1] == 3:
+            pygame.draw.polygon(self.screen, color='white', points=self.t1.get_points())
+        #elif number[1] == 4:
+            #self.t1.add_points([100, 300])
+            #pygame.draw.polygon(self.screen, color='white', points=self.t1.get_points())
+        else:
+            print('Pas de polygon associé a cette valeur')
 
     def create_polygon(self):
         # Ici sera créé un nombre de polygon équidistant les uns des autres avec le bon nombre de côté
@@ -66,7 +76,9 @@ class Modelisation:
         menu = pygame_menu.Menu('Hello', self.width / 1.5, self.height / 1.5,
                                 theme=pygame_menu.themes.THEME_SOLARIZED)
         menu.add.button('Play', self.on_play_button_click)
-        menu.add.selector('Type de polygone: ', [('Triangle', 3), ('Carré', 4)], onchange=self.number_of_points)
+        menu.add.selector('Type de polygone: ',
+                          [('Triangle', 3), ('Quadrilatère', 4), ('Pentagone', 5), ('Hexagone', 6)],
+                          onchange=self.polygon_value)
         menu.add.button('Quit', pygame_menu.events.EXIT)
         menu.mainloop(self.screen)
 
@@ -79,12 +91,13 @@ class Modelisation:
         while self.game_start():
 
             self.update()
+
             # efface l'ecran
             self.screen.fill((0, 0, 0))
             self.draw_points(self.poisson_disk.samples)
             # Ici tant qu'on a pas appuyé sur la croix pour fermé la fenêtre, on crée un polygon avec une
             # liste de points définies dans init. On update ensuite la fenêtre pour que cela s'affiche correctement
-            pygame.draw.polygon(self.screen, color="white", points=self.t1.get_points())
+            # pygame.draw.polygon(self.screen, color="white", points=self.t1.get_points())
 
             # bouge le cercle
             if InputManager.is_button_down(pygame.BUTTON_LEFT):
@@ -107,4 +120,4 @@ class Modelisation:
 if __name__ == "__main__":
     theApp = Modelisation()
     theApp.menu_generator()
-    theApp.on_play_button_click()
+
