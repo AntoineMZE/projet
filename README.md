@@ -42,3 +42,4 @@ On a rajouté de la documentation basique sur chaque classes.
 - _**Semaine 6 :**_ 
 Ajout d'un menu pour la selection du nombre de côtés du polygon qui sera dessiné, ainsi que d'un menu. (Pour lancer le menu, importer le dans votre ide et votre shell)
 Le test de l'algorithme poisson disk a aussi été fait. 
+Ajout aussi du choix du nombre de cote avec une fonction correspondante qui fonctionne à moitié
