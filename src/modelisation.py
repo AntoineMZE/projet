@@ -1,4 +1,5 @@
 import math
+from typing import Tuple, Any
 
 import pygame
 import pygame_menu
@@ -34,9 +35,9 @@ class Modelisation:
     def game_start(self):
         return self.running
 
-    def number_of_points(self):
+    def number_of_points(self, selected: Tuple, value: Any) -> None:
         # Ici sera mis à jour le nombre de cotes du polygon chosis par le joueur
-        pass
+        print(f'Le nombre de cotés du polygon sera de {selected[0]} ({value})')
 
     def polygon_value(self):
         # Ici sera créé le polygon en fonction de son nombre de coté
@@ -65,7 +66,7 @@ class Modelisation:
         menu = pygame_menu.Menu('Hello', self.width / 1.5, self.height / 1.5,
                                 theme=pygame_menu.themes.THEME_SOLARIZED)
         menu.add.button('Play', self.on_play_button_click)
-        menu.add.selector('Type de polygone: ', [('Triangle', 3), ('Carré', 4)], onchange=self.number_of_points())
+        menu.add.selector('Type de polygone: ', [('Triangle', 3), ('Carré', 4)], onchange=self.number_of_points)
         menu.add.button('Quit', pygame_menu.events.EXIT)
         menu.mainloop(self.screen)
 
