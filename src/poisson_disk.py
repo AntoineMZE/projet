@@ -1,6 +1,6 @@
 import math
 import random
-import point
+from src.point import Point
 
 
 class PoissonDisk:
@@ -37,7 +37,7 @@ class PoissonDisk:
         return True
 
     def sample(self, x, y):
-        new_point = point.Point(x, y)
+        new_point = Point(x, y)
         self.samples.append(new_point)
         cell_x = int(x / self.cellSize)
         cell_y = int(y / self.cellSize)

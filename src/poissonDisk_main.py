@@ -3,7 +3,7 @@ from src.poisson_disk import PoissonDisk
 
 if __name__ == "__main__":
     pygame_renderer = PygamePoissonDisk(800, 600)
-    poisson_disk = PoissonDisk(800, 600, 100, 30)
+    poisson_disk = PoissonDisk(800, 600, 50, 30)
     poisson_disk.poisson_disk_sampling()
 
     running = True
