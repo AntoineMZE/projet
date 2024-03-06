@@ -39,7 +39,18 @@ Conclusion de la séance : On a très peu avancé, on a du retard. Faire polygon
 Cette semaine on a bien avancé sur le projet notamment point et polygon. Je me suis occupé du début de la modelisation et Steeven a commencé l'algorithme poisson disk de son côte.
 On a rajouté de la documentation basique sur chaque classes.
 
+
 - _**Semaine 6 :**_ 
 Ajout d'un menu pour la selection du nombre de côtés du polygon qui sera dessiné, ainsi que d'un menu. (Pour lancer le menu, importer le dans votre ide et votre shell)
 Le test de l'algorithme poisson disk a aussi été fait. 
 Ajout aussi du choix du nombre de cote avec une fonction correspondante qui fonctionne à moitié
+
+
+- _**Semaine 7 :**_ 
+Rattrapages donc nous n'avons pas travaillé sur le projet cette semaine 
+
+
+- _**Semaine 8 :**_ 
+Fin du menu principal du jeu, et commencement de la modelisation complète de la génération des polygones,
+à l'aide d'un algorithme qui, selon le nombre de coté que nous choisissons, nous crée une liste de points
+permettant d'avoir un polygone régulier. 
