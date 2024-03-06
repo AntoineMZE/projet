@@ -53,4 +53,4 @@ Rattrapages donc nous n'avons pas travaillé sur le projet cette semaine
 - _**Semaine 8 :**_ 
 Fin du menu principal du jeu, et commencement de la modelisation complète de la génération des polygones,
 à l'aide d'un algorithme qui, selon le nombre de coté que nous choisissons, nous crée une liste de points
-permettant d'avoir un polygone régulier. 
+permettant d'avoir un polygone régulier.  
