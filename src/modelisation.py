@@ -1,6 +1,6 @@
 from math import *
 from typing import Tuple, Any, Dict
-
+## K_ESCAPE
 import pygame
 import pygame_menu
 import point
@@ -47,12 +47,11 @@ class Modelisation:
         # Mise à jour de la valeur sélectionnée sans dessiner le triangle immédiatement
         self.selected_polygon = value
         return value
-    
+
     def taille_value(self, selected: Tuple, value: Any) -> None:
         # Mise à jour de la valeur sélectionnée sans dessiner le triangle immédiatement
         self.selected_taille = value
         return value
-
 
     def create_polygon(self):
         # Ici sera créé un nombre de polygon équidistant les uns des autres avec le bon nombre de côté
@@ -74,28 +73,36 @@ class Modelisation:
                 InputManager.update(event)  # met à jour le dictionnaire des touches et boutons suivant les evenements
 
     def menu_generator(self):
-        menu = pygame_menu.Menu('Hello', self.width / 1.5, self.height / 1.5,
+        menu = pygame_menu.Menu('Main Menu Of Visibility Algorithm', self.width / 1.5, self.height / 1.5,
                                 theme=pygame_menu.themes.THEME_SOLARIZED)
         menu.add.button('Play', self.on_play_button_click)
         menu.add.selector('Type de polygone: ',
                           [('Triangle', 3), ('Quadrilatère', 4), ('Pentagone', 5), ('Hexagone', 6)],
                           onchange=self.polygon_value)
-        menu.add.selector('Taille du polygone :', [('25', 25), ('50', 50), ('75', 75), ('100', 100), ('125', 125), ('150', 150), ('175', 175), ('200', 200)], onchange=self.taille_value)
+        menu.add.selector('Taille du polygone :',
+                          [('25', 25), ('50', 50), ('75', 75), ('100', 100), ('125', 125), ('150', 150), ('175', 175),
+                           ('200', 200)], onchange=self.taille_value)
         menu.add.button('Quit', pygame_menu.events.EXIT)
         menu.mainloop(self.screen)
 
+    def escape_menu(self):
+        menu = pygame_menu.Menu('Escape Menu', self.width / 1.5, self.height / 1.5,
+                                theme=pygame_menu.themes.THEME_SOLARIZED)
+        ## menu.add.button('Return to menu', self.menu_generator)
+        menu.add.button('Quit', pygame_menu.events.EXIT)
+
     def update_polygon(self):
         if self.selected_polygon == 3:
-            t1 = polygon.Polygon.create_regular_polygon(3,  self.selected_taille, self.selected_taille, pos=(100,100))
+            t1 = polygon.Polygon.create_regular_polygon(3, self.selected_taille, self.selected_taille, pos=(200, 200))
             pygame.draw.polygon(self.screen, color='white', points=t1.get_points())
         elif self.selected_polygon == 4:
-            t1 = polygon.Polygon.create_regular_polygon(4, self.selected_taille, self.selected_taille, pos=(100,100))
+            t1 = polygon.Polygon.create_regular_polygon(4, self.selected_taille, self.selected_taille, pos=(200, 200))
             pygame.draw.polygon(self.screen, color='white', points=t1.get_points())
         elif self.selected_polygon == 5:
-            t1 = polygon.Polygon.create_regular_polygon(5, self.selected_taille, self.selected_taille, pos=(100,100))
+            t1 = polygon.Polygon.create_regular_polygon(5, self.selected_taille, self.selected_taille, pos=(200, 200))
             pygame.draw.polygon(self.screen, color='white', points=t1.get_points())
         elif self.selected_polygon == 6:
-            t1 = polygon.Polygon.create_regular_polygon(6, self.selected_taille, self.selected_taille, pos=(100,100))
+            t1 = polygon.Polygon.create_regular_polygon(6, self.selected_taille, self.selected_taille, pos=(200, 200))
             pygame.draw.polygon(self.screen, color='white', points=t1.get_points())
         # Ajoutez d'autres conditions pour les autres valeurs si nécessaire
 
@@ -112,6 +119,8 @@ class Modelisation:
         while self.game_start():
 
             self.update()
+            if InputManager.is_key_down(27):
+                self.escape_menu()
 
             # efface l'ecran
             self.screen.fill((0, 0, 0))
@@ -142,4 +151,3 @@ class Modelisation:
 if __name__ == "__main__":
     theApp = Modelisation()
     theApp.menu_generator()
-

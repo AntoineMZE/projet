@@ -1,6 +1,5 @@
 from math import *
 
-
 class Polygon:
 
     def __init__(self, points):
