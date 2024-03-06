@@ -14,6 +14,7 @@ from src.poisson_disk import PoissonDisk
 class Modelisation:
 
     def __init__(self):
+        self.selected_polygon = None
         pygame.init()
         self.clock = pygame.time.Clock()
         self.running = True
@@ -41,17 +42,11 @@ class Modelisation:
         val = value
         return select, val
 
-    def polygon_value(self, selected: Tuple, value: Any) -> None:
-        # Ici sera créé le polygon en fonction de son nombre de coté
-        number = self.number_of_points(selected, value)
-        print(number)
-        if number[1] == 3:
-            pygame.draw.polygon(self.screen, color='white', points=self.t1.get_points())
-        #elif number[1] == 4:
-            #self.t1.add_points([100, 300])
-            #pygame.draw.polygon(self.screen, color='white', points=self.t1.get_points())
-        else:
-            print('Pas de polygon associé a cette valeur')
+    def polygon_value(self, value: Any) -> None:
+        # Mise à jour de la valeur sélectionnée sans dessiner le triangle immédiatement
+        self.selected_polygon = value
+        return value
+
 
     def create_polygon(self):
         # Ici sera créé un nombre de polygon équidistant les uns des autres avec le bon nombre de côté
@@ -82,7 +77,20 @@ class Modelisation:
         menu.add.button('Quit', pygame_menu.events.EXIT)
         menu.mainloop(self.screen)
 
+    def update_polygon(self):
+        if self.selected_polygon == 3:
+            pygame.draw.polygon(self.screen, color='white', points=self.t1.get_points())
+        elif self.selected_polygon == 4:
+            p4 = point.Point(100, 300)
+            self.t1.add_points(p4)
+            pygame.draw.polygon(self.screen, color='white', points=self.t1.get_points())
+        # Ajoutez d'autres conditions pour les autres valeurs si nécessaire
+
     def on_play_button_click(self):
+        self.play_button_clicked = True
+        if self.selected_polygon is not None:
+            self.update_polygon()  # Actualisez la valeur du menu
+
         cercle_pos = pygame.Vector2(400, 400)
         cercle_offset = pygame.Vector2(self.cercle.get_width(), self.cercle.get_height()) * .5
         cercle_selected = False
@@ -95,6 +103,7 @@ class Modelisation:
             # efface l'ecran
             self.screen.fill((0, 0, 0))
             self.draw_points(self.poisson_disk.samples)
+            self.update_polygon()
             # Ici tant qu'on a pas appuyé sur la croix pour fermé la fenêtre, on crée un polygon avec une
             # liste de points définies dans init. On update ensuite la fenêtre pour que cela s'affiche correctement
             # pygame.draw.polygon(self.screen, color="white", points=self.t1.get_points())
