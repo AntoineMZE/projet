@@ -80,7 +80,7 @@ class Modelisation:
         menu.add.selector('Type de polygone: ',
                           [('Triangle', 3), ('Quadrilatère', 4), ('Pentagone', 5), ('Hexagone', 6)],
                           onchange=self.polygon_value)
-        menu.add.selector('Taille du polygone :', [('50', 50), ('100', 100), ('150', 150), ('200', 200), ('250', 250), ('300', 300)], onchange=self.taille_value)
+        menu.add.selector('Taille du polygone :', [('25', 25), ('50', 50), ('75', 75), ('100', 100), ('125', 125), ('150', 150), ('175', 175), ('200', 200)], onchange=self.taille_value)
         menu.add.button('Quit', pygame_menu.events.EXIT)
         menu.mainloop(self.screen)
 
