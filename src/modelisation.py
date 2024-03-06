@@ -1,4 +1,4 @@
-import math
+from math import *
 from typing import Tuple, Any, Dict
 
 import pygame
@@ -14,6 +14,7 @@ from src.poisson_disk import PoissonDisk
 class Modelisation:
 
     def __init__(self):
+        self.selected_taille = None
         self.selected_polygon = None
         pygame.init()
         self.clock = pygame.time.Clock()
@@ -26,7 +27,7 @@ class Modelisation:
         self.p2 = point.Point(50, 200)
         self.p3 = point.Point(150, 200)
         self.point_list = [(self.p1.x, self.p1.y), (self.p2.x, self.p2.y), (self.p3.x, self.p3.y)]
-        self.t1 = polygon.Polygon(self.point_list)
+        ## self.t1 = polygon.Polygon.create_regular_polygon(3)
         self.cercle = pygame.image.load('image/white-circle-free-png.png').convert_alpha()
         self.rect = self.cercle.get_rect()
         self.poisson_disk = PoissonDisk(800, 800, 150, 50)
@@ -42,9 +43,14 @@ class Modelisation:
         val = value
         return select, val
 
-    def polygon_value(self, value: Any) -> None:
+    def polygon_value(self, selected: Tuple, value: Any) -> None:
         # Mise à jour de la valeur sélectionnée sans dessiner le triangle immédiatement
         self.selected_polygon = value
+        return value
+    
+    def taille_value(self, selected: Tuple, value: Any) -> None:
+        # Mise à jour de la valeur sélectionnée sans dessiner le triangle immédiatement
+        self.selected_taille = value
         return value
 
 
@@ -74,16 +80,23 @@ class Modelisation:
         menu.add.selector('Type de polygone: ',
                           [('Triangle', 3), ('Quadrilatère', 4), ('Pentagone', 5), ('Hexagone', 6)],
                           onchange=self.polygon_value)
+        menu.add.selector('Taille du polygone :', [('50', 50), ('100', 100), ('150', 150), ('200', 200), ('250', 250), ('300', 300)], onchange=self.taille_value)
         menu.add.button('Quit', pygame_menu.events.EXIT)
         menu.mainloop(self.screen)
 
     def update_polygon(self):
         if self.selected_polygon == 3:
-            pygame.draw.polygon(self.screen, color='white', points=self.t1.get_points())
+            t1 = polygon.Polygon.create_regular_polygon(3,  self.selected_taille, self.selected_taille, pos=(100,100))
+            pygame.draw.polygon(self.screen, color='white', points=t1.get_points())
         elif self.selected_polygon == 4:
-            p4 = point.Point(100, 300)
-            self.t1.add_points(p4)
-            pygame.draw.polygon(self.screen, color='white', points=self.t1.get_points())
+            t1 = polygon.Polygon.create_regular_polygon(4, self.selected_taille, self.selected_taille, pos=(100,100))
+            pygame.draw.polygon(self.screen, color='white', points=t1.get_points())
+        elif self.selected_polygon == 5:
+            t1 = polygon.Polygon.create_regular_polygon(5, self.selected_taille, self.selected_taille, pos=(100,100))
+            pygame.draw.polygon(self.screen, color='white', points=t1.get_points())
+        elif self.selected_polygon == 6:
+            t1 = polygon.Polygon.create_regular_polygon(6, self.selected_taille, self.selected_taille, pos=(100,100))
+            pygame.draw.polygon(self.screen, color='white', points=t1.get_points())
         # Ajoutez d'autres conditions pour les autres valeurs si nécessaire
 
     def on_play_button_click(self):

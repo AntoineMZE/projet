@@ -1,10 +1,27 @@
+from math import *
+
+
 class Polygon:
 
     def __init__(self, points):
         self.points = points[:]
         self.length = len(points)
 
+    @staticmethod
+    def create_regular_polygon(n_faces, width=1, height=1, angle=0, pos=(0, 0)):
+        points = []
+        a_step = 2 * pi / n_faces
+        a = angle
+        px, py = pos
+        for i in range(n_faces):
+            x = px + cos(a) * width
+            y = py + sin(a) * height
+            points.append((x, y))
+            a += a_step
+        return Polygon(points)
+
     def get_points(self):
+
         # Renvoie la liste de points du polygon
         return self.points
 
