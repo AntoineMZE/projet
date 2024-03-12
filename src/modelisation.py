@@ -73,7 +73,7 @@ class Modelisation:
                 InputManager.update(event)  # met à jour le dictionnaire des touches et boutons suivant les evenements
 
     def menu_generator(self):
-        menu = pygame_menu.Menu('Main Menu Of Visibility Algorithm', self.width / 1.5, self.height / 1.5,
+        menu = pygame_menu.Menu('Main Menu Of Visibility Algorithm', self.width / 1.25, self.height / 1.5,
                                 theme=pygame_menu.themes.THEME_SOLARIZED)
         menu.add.button('Play', self.on_play_button_click)
         menu.add.selector('Type de polygone: ',
@@ -86,7 +86,7 @@ class Modelisation:
         menu.mainloop(self.screen)
 
     def escape_menu(self):
-        menu = pygame_menu.Menu('Escape Menu', self.width / 1.5, self.height / 1.5,
+        menu = pygame_menu.Menu('Escape Menu', self.width / 1.25, self.height / 1.5,
                                 theme=pygame_menu.themes.THEME_SOLARIZED)
         ## menu.add.button('Return to menu', self.menu_generator)
         menu.add.button('Quit', pygame_menu.events.EXIT)
