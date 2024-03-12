@@ -14,8 +14,8 @@ from src.poisson_disk import PoissonDisk
 class Modelisation:
 
     def __init__(self):
-        self.selected_taille = None
-        self.selected_polygon = None
+        self.selected_taille = 25
+        self.selected_polygon = 3
         pygame.init()
         self.clock = pygame.time.Clock()
         self.running = True
@@ -86,10 +86,15 @@ class Modelisation:
         menu.mainloop(self.screen)
 
     def escape_menu(self):
+        print("Escape menu")
         menu = pygame_menu.Menu('Escape Menu', self.width / 1.25, self.height / 1.5,
                                 theme=pygame_menu.themes.THEME_SOLARIZED)
         ## menu.add.button('Return to menu', self.menu_generator)
-        menu.add.button('Quit', pygame_menu.events.EXIT)
+        def _exit():
+            self.running = False
+            pygame_menu.events.EXIT()
+        menu.add.button('Quit', _exit)
+        menu.draw(self.screen)
 
     def update_polygon(self):
         if self.selected_polygon == 3:
@@ -115,12 +120,15 @@ class Modelisation:
         cercle_offset = pygame.Vector2(self.cercle.get_width(), self.cercle.get_height()) * .5
         cercle_selected = False
         mouse_down = False
+        self.is_in_menu = False
+        was_pressed = False
         # C'est ici que se passe toute la modélisation sur la fenêtre de jeu
         while self.game_start():
 
             self.update()
-            if InputManager.is_key_down(27):
-                self.escape_menu()
+            if not was_pressed and InputManager.is_key_down(pygame.K_ESCAPE):
+                self.is_in_menu = not self.is_in_menu
+            was_pressed = InputManager.is_key_down(pygame.K_ESCAPE)
 
             # efface l'ecran
             self.screen.fill((0, 0, 0))
@@ -140,6 +148,9 @@ class Modelisation:
             if cercle_selected:
                 cercle_pos = InputManager.get_mouse_pos()
             self.screen.blit(self.cercle, cercle_pos - cercle_offset)
+
+            if self.is_in_menu:
+                self.escape_menu()
 
             pygame.display.update()
         self.clock.tick(60)
