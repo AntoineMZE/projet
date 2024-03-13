@@ -58,4 +58,5 @@ permettant d'avoir un polygone régulier.
 - _**Semaine 9 :**_
 Debut de l'agorithme de triangulation du côté de Steeven. Tentative algorithme génération polygones suivant
 la taille sélectionnée et le nombre de côtés sélectionné lors du menu (Ne fonctionne pas très bien). 
-L'algorithme a été essayé avec PoissonDisk et de manière normale sans PoissonDisk.
+L'algorithme a été essayé avec PoissonDisk et de manière normale sans PoissonDisk. Ajout d'un script 
+qui attend une action dans le menu pause avant de relancer le script de base. 

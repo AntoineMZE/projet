@@ -103,7 +103,7 @@ class Modelisation:
         ## menu.draw(self.screen)
 
         def _exit():
-            ## self.running = False
+            self.running = False
             pygame_menu.events.EXIT()
 
         menu.add.button('Quit', _exit)
@@ -195,8 +195,8 @@ class Modelisation:
             self.screen.blit(self.cercle, cercle_pos - cercle_offset)
 
             if self.is_in_menu:
-                ## cercle_selected = False
-                # pygame.event.wait()
+                cercle_selected = False
+                pygame.event.wait(pygame.K_ESCAPE)
                 self.escape_menu()
 
             pygame.display.update()
