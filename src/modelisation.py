@@ -1,3 +1,4 @@
+import math
 from math import *
 from typing import Tuple, Any, Dict
 ## K_ESCAPE
@@ -14,12 +15,15 @@ from src.poisson_disk import PoissonDisk
 class Modelisation:
 
     def __init__(self):
+        self.is_in_menu = None
+        self.y = 200
+        self.x = 200
         self.selected_taille = 25
         self.selected_polygon = 3
         pygame.init()
         self.clock = pygame.time.Clock()
         self.running = True
-        self.screen = pygame.display.set_mode((800, 800))
+        self.screen = pygame.display.set_mode((1300, 800))
         self.width = self.screen.get_width()
         self.height = self.screen.get_height()
         pygame.display.set_caption("Modélisation algorithme de visibilité")
@@ -30,7 +34,7 @@ class Modelisation:
         ## self.t1 = polygon.Polygon.create_regular_polygon(3)
         self.cercle = pygame.image.load('image/white-circle-free-png.png').convert_alpha()
         self.rect = self.cercle.get_rect()
-        self.poisson_disk = PoissonDisk(800, 800, 150, 50)
+        self.poisson_disk = PoissonDisk(1300, 800, 50, 50)
         self.poisson_disk.poisson_disk_sampling()
 
     def game_start(self):
@@ -56,6 +60,9 @@ class Modelisation:
     def create_polygon(self):
         # Ici sera créé un nombre de polygon équidistant les uns des autres avec le bon nombre de côté
         pass
+
+    def set_running(self, running: bool) -> None:
+        self.running = running
 
     def draw_points(self, points):
         # self.screen.fill("black")
@@ -86,28 +93,48 @@ class Modelisation:
         menu.mainloop(self.screen)
 
     def escape_menu(self):
-        print("Escape menu")
-        menu = pygame_menu.Menu('Escape Menu', self.width / 1.25, self.height / 1.5,
+        ## print("Escape menu")
+        menu = pygame_menu.Menu('Pause Menu', self.width / 1.25, self.height / 1.5,
                                 theme=pygame_menu.themes.THEME_SOLARIZED)
-        ## menu.add.button('Return to menu', self.menu_generator)
+        menu.add.button('Resume', self.on_play_button_click)
+        menu.add.button('Return to menu', self.menu_generator)
+
+        ## menu.add.button('Quit', self.set_running(False) and self.game_start())
+        ## menu.draw(self.screen)
+
         def _exit():
-            self.running = False
+            ## self.running = False
             pygame_menu.events.EXIT()
+
         menu.add.button('Quit', _exit)
         menu.draw(self.screen)
 
+    def generer_grille_polygones(self, nombre_cotes, taille_polygone):
+        positions = []
+        rayon = int(taille_polygone * 1.25)
+        espacement_entre_polygones = int(taille_polygone * 5)  # Ajustez selon vos préférences
+
+        for x in range(rayon, self.screen.get_width(), espacement_entre_polygones):
+            for y in range(rayon, self.screen.get_height(), espacement_entre_polygones):
+                positions.append((x, y))
+        return positions
+
     def update_polygon(self):
         if self.selected_polygon == 3:
-            t1 = polygon.Polygon.create_regular_polygon(3, self.selected_taille, self.selected_taille, pos=(200, 200))
+            t1 = polygon.Polygon.create_regular_polygon(3, self.selected_taille, self.selected_taille,
+                                                        pos=(self.x, self.y))
             pygame.draw.polygon(self.screen, color='white', points=t1.get_points())
         elif self.selected_polygon == 4:
-            t1 = polygon.Polygon.create_regular_polygon(4, self.selected_taille, self.selected_taille, pos=(200, 200))
+            t1 = polygon.Polygon.create_regular_polygon(4, self.selected_taille, self.selected_taille,
+                                                        pos=(self.x, self.y))
             pygame.draw.polygon(self.screen, color='white', points=t1.get_points())
         elif self.selected_polygon == 5:
-            t1 = polygon.Polygon.create_regular_polygon(5, self.selected_taille, self.selected_taille, pos=(200, 200))
+            t1 = polygon.Polygon.create_regular_polygon(5, self.selected_taille, self.selected_taille,
+                                                        pos=(self.x, self.y))
             pygame.draw.polygon(self.screen, color='white', points=t1.get_points())
         elif self.selected_polygon == 6:
-            t1 = polygon.Polygon.create_regular_polygon(6, self.selected_taille, self.selected_taille, pos=(200, 200))
+            t1 = polygon.Polygon.create_regular_polygon(6, self.selected_taille, self.selected_taille,
+                                                        pos=(self.x, self.y))
             pygame.draw.polygon(self.screen, color='white', points=t1.get_points())
         # Ajoutez d'autres conditions pour les autres valeurs si nécessaire
 
@@ -124,7 +151,7 @@ class Modelisation:
         was_pressed = False
         # C'est ici que se passe toute la modélisation sur la fenêtre de jeu
         while self.game_start():
-
+            positions_polygones = self.generer_grille_polygones(self.selected_polygon, self.selected_taille)
             self.update()
             if not was_pressed and InputManager.is_key_down(pygame.K_ESCAPE):
                 self.is_in_menu = not self.is_in_menu
@@ -133,7 +160,25 @@ class Modelisation:
             # efface l'ecran
             self.screen.fill((0, 0, 0))
             self.draw_points(self.poisson_disk.samples)
-            self.update_polygon()
+            for position in positions_polygones:
+                if position <= (self.screen.get_width(), self.screen.get_height()):
+                    # Générer les points du polygone équidistant
+                    polygone_points = polygon.Polygon.create_regular_polygon(self.selected_polygon,
+                                                                             self.selected_taille, self.selected_taille,
+                                                                             angle=180, pos=position)
+                    # Dessiner le polygone
+                    pygame.draw.polygon(self.screen, color='white', points=polygone_points.get_points())
+
+            # for point in self.poisson_disk.samples:
+            #     vertices = []
+            #     for i in range(self.selected_polygon):
+            #         angle = i * (2 * math.pi) / self.selected_polygon
+            #         x = point.x + self.selected_taille * math.cos(angle)
+            #         y = point.y + self.selected_taille * math.sin(angle)
+            #         vertices.append((int(x), int(y)))
+            #
+            #     pygame.draw.polygon(self.screen, "white", vertices)
+            ## self.update_polygon()
             # Ici tant qu'on a pas appuyé sur la croix pour fermé la fenêtre, on crée un polygon avec une
             # liste de points définies dans init. On update ensuite la fenêtre pour que cela s'affiche correctement
             # pygame.draw.polygon(self.screen, color="white", points=self.t1.get_points())
@@ -150,6 +195,8 @@ class Modelisation:
             self.screen.blit(self.cercle, cercle_pos - cercle_offset)
 
             if self.is_in_menu:
+                ## cercle_selected = False
+                # pygame.event.wait()
                 self.escape_menu()
 
             pygame.display.update()
