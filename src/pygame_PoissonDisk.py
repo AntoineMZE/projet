@@ -63,7 +63,7 @@ class PygamePoissonDisk:
         pass
 
     def run(self):
-        poisson_disk = PoissonDisk(self.width, self.height, 100, 5)
+        poisson_disk = PoissonDisk(self.width, self.height, 50, 30)
         poisson_disk.poisson_disk_sampling()
 
         while self.running:
