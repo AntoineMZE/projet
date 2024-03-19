@@ -15,6 +15,7 @@ from src.poisson_disk import PoissonDisk
 class Modelisation:
 
     def __init__(self):
+        self.poisson_disk = None
         self.is_in_menu = None
         self.y = 200
         self.x = 200
@@ -34,8 +35,7 @@ class Modelisation:
         ## self.t1 = polygon.Polygon.create_regular_polygon(3)
         self.cercle = pygame.image.load('image/white-circle-free-png.png').convert_alpha()
         self.rect = self.cercle.get_rect()
-        self.poisson_disk = PoissonDisk(1300, 800, 50, 50)
-        self.poisson_disk.poisson_disk_sampling()
+
 
     def game_start(self):
         return self.running
@@ -120,28 +120,32 @@ class Modelisation:
         return positions
 
     def update_polygon(self):
-        if self.selected_polygon == 3:
-            t1 = polygon.Polygon.create_regular_polygon(3, self.selected_taille, self.selected_taille,
-                                                        pos=(self.x, self.y))
-            pygame.draw.polygon(self.screen, color='white', points=t1.get_points())
-        elif self.selected_polygon == 4:
-            t1 = polygon.Polygon.create_regular_polygon(4, self.selected_taille, self.selected_taille,
-                                                        pos=(self.x, self.y))
-            pygame.draw.polygon(self.screen, color='white', points=t1.get_points())
-        elif self.selected_polygon == 5:
-            t1 = polygon.Polygon.create_regular_polygon(5, self.selected_taille, self.selected_taille,
-                                                        pos=(self.x, self.y))
-            pygame.draw.polygon(self.screen, color='white', points=t1.get_points())
-        elif self.selected_polygon == 6:
-            t1 = polygon.Polygon.create_regular_polygon(6, self.selected_taille, self.selected_taille,
-                                                        pos=(self.x, self.y))
-            pygame.draw.polygon(self.screen, color='white', points=t1.get_points())
+        # if self.selected_polygon == 3:
+        #     t1 = polygon.Polygon.create_regular_polygon(3, self.selected_taille, self.selected_taille,
+        #                                                 pos=(self.x, self.y))
+        #     pygame.draw.polygon(self.screen, color='white', points=t1.get_points())
+        # elif self.selected_polygon == 4:
+        #     t1 = polygon.Polygon.create_regular_polygon(4, self.selected_taille, self.selected_taille,
+        #                                                 pos=(self.x, self.y))
+        #     pygame.draw.polygon(self.screen, color='white', points=t1.get_points())
+        # elif self.selected_polygon == 5:
+        #     t1 = polygon.Polygon.create_regular_polygon(5, self.selected_taille, self.selected_taille,
+        #                                                 pos=(self.x, self.y))
+        #     pygame.draw.polygon(self.screen, color='white', points=t1.get_points())
+        # elif self.selected_polygon == 6:
+        #     t1 = polygon.Polygon.create_regular_polygon(6, self.selected_taille, self.selected_taille,
+        #                                                 pos=(self.x, self.y))
+        #     pygame.draw.polygon(self.screen, color='white', points=t1.get_points())
         # Ajoutez d'autres conditions pour les autres valeurs si nécessaire
+        pass
 
     def on_play_button_click(self):
         self.play_button_clicked = True
         if self.selected_polygon is not None:
             self.update_polygon()  # Actualisez la valeur du menu
+
+        self.poisson_disk = PoissonDisk(1300, 800, self.selected_taille*2, 50)
+        self.poisson_disk.poisson_disk_sampling()
 
         cercle_pos = pygame.Vector2(400, 400)
         cercle_offset = pygame.Vector2(self.cercle.get_width(), self.cercle.get_height()) * .5
@@ -160,44 +164,42 @@ class Modelisation:
             # efface l'ecran
             self.screen.fill((0, 0, 0))
             self.draw_points(self.poisson_disk.samples)
-            for position in positions_polygones:
-                if position <= (self.screen.get_width(), self.screen.get_height()):
-                    # Générer les points du polygone équidistant
-                    polygone_points = polygon.Polygon.create_regular_polygon(self.selected_polygon,
-                                                                             self.selected_taille, self.selected_taille,
-                                                                             angle=180, pos=position)
-                    # Dessiner le polygone
-                    pygame.draw.polygon(self.screen, color='white', points=polygone_points.get_points())
+            # for position in positions_polygones:
+            #     if position <= (self.screen.get_width(), self.screen.get_height()):
+            #         # Générer les points du polygone équidistant
+            #         polygone_points = polygon.Polygon.create_regular_polygon(self.selected_polygon,
+            #                                                                  self.selected_taille, self.selected_taille,
+            #                                                                  angle=180, pos=position)
+            #         # Dessiner le polygone
+            #         pygame.draw.polygon(self.screen, color='white', points=polygone_points.get_points())
 
-            # for point in self.poisson_disk.samples:
-            #     vertices = []
-            #     for i in range(self.selected_polygon):
-            #         angle = i * (2 * math.pi) / self.selected_polygon
-            #         x = point.x + self.selected_taille * math.cos(angle)
-            #         y = point.y + self.selected_taille * math.sin(angle)
-            #         vertices.append((int(x), int(y)))
-            #
-            #     pygame.draw.polygon(self.screen, "white", vertices)
-            ## self.update_polygon()
+            for point in self.poisson_disk.samples:
+                vertices = polygon.Polygon.create_regular_polygon(self.selected_polygon,
+                                                                  self.selected_taille, self.selected_taille,
+                                                                  angle=180, pos=(point.x, point.y))
+                pygame.draw.polygon(self.screen, "white", vertices.get_points())
+            self.update_polygon()
             # Ici tant qu'on a pas appuyé sur la croix pour fermé la fenêtre, on crée un polygon avec une
             # liste de points définies dans init. On update ensuite la fenêtre pour que cela s'affiche correctement
             # pygame.draw.polygon(self.screen, color="white", points=self.t1.get_points())
 
             # bouge le cercle
-            if InputManager.is_button_down(pygame.BUTTON_LEFT):
-                dist = (InputManager.get_mouse_pos() - cercle_pos).length()
-                if dist < self.cercle.get_width() * .5:
-                    cercle_selected = True
-            elif InputManager.is_button_up(pygame.BUTTON_LEFT) and cercle_selected:
-                cercle_selected = False
-            if cercle_selected:
-                cercle_pos = InputManager.get_mouse_pos()
             self.screen.blit(self.cercle, cercle_pos - cercle_offset)
-
             if self.is_in_menu:
                 cercle_selected = False
                 pygame.event.wait(pygame.K_ESCAPE)
                 self.escape_menu()
+            else:
+                if InputManager.is_button_down(pygame.BUTTON_LEFT):
+                    dist = (InputManager.get_mouse_pos() - cercle_pos).length()
+                    if dist < self.cercle.get_width() * .5:
+                        cercle_selected = True
+                elif InputManager.is_button_up(pygame.BUTTON_LEFT) and cercle_selected:
+                    cercle_selected = False
+                if cercle_selected:
+                    cercle_pos = InputManager.get_mouse_pos()
+
+
 
             pygame.display.update()
         self.clock.tick(60)
