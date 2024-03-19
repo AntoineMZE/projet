@@ -54,3 +54,9 @@ Rattrapages donc nous n'avons pas travaillé sur le projet cette semaine
 Fin du menu principal du jeu, et commencement de la modelisation complète de la génération des polygones,
 à l'aide d'un algorithme qui, selon le nombre de coté que nous choisissons, nous crée une liste de points
 permettant d'avoir un polygone régulier.  
+
+- _**Semaine 9 :**_
+Debut de l'agorithme de triangulation du côté de Steeven. Tentative algorithme génération polygones suivant
+la taille sélectionnée et le nombre de côtés sélectionné lors du menu (Ne fonctionne pas très bien). 
+L'algorithme a été essayé avec PoissonDisk et de manière normale sans PoissonDisk. Ajout d'un script 
+qui attend une action dans le menu pause avant de relancer le script de base. 
