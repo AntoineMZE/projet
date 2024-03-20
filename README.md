@@ -60,3 +60,12 @@ Debut de l'agorithme de triangulation du côté de Steeven. Tentative algorithme
 la taille sélectionnée et le nombre de côtés sélectionné lors du menu (Ne fonctionne pas très bien). 
 L'algorithme a été essayé avec PoissonDisk et de manière normale sans PoissonDisk. Ajout d'un script 
 qui attend une action dans le menu pause avant de relancer le script de base. 
+
+- _**Semaine 10 :**_
+- TODO : Faire l'algorithme de visibilité en temps réél sur les polygones 
+déjà existants (Algo décrit dans redblobgames).
+- Faire delaunay sur poissondisk
+- Faire un labyrinthe (un grand polygone quoi) où poissondisk changerai de taille suivant l'endroit où se situe 
+le cercle, puis faire delaunay sur le polygone et la visibilté en temps réél.
+- Pouvoir changer le nombre de points de poissondisk en fonction de la taille de l'écran
+En gros, aucun point ne doit dépasser de l'écran et il faut une génération avec énormément de poins.

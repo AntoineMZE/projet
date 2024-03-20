@@ -57,10 +57,6 @@ class Modelisation:
         self.selected_taille = value
         return value
 
-    def create_polygon(self):
-        # Ici sera créé un nombre de polygon équidistant les uns des autres avec le bon nombre de côté
-        pass
-
     def set_running(self, running: bool) -> None:
         self.running = running
 
@@ -87,8 +83,7 @@ class Modelisation:
                           [('Triangle', 3), ('Quadrilatère', 4), ('Pentagone', 5), ('Hexagone', 6)],
                           onchange=self.polygon_value)
         menu.add.selector('Taille du polygone :',
-                          [('25', 25), ('50', 50), ('75', 75), ('100', 100), ('125', 125), ('150', 150), ('175', 175),
-                           ('200', 200)], onchange=self.taille_value)
+                          [('75', 75), ('100', 100), ('125', 125), ('150', 150), ('175', 175), ('200', 200)], onchange=self.taille_value)
         menu.add.button('Quit', pygame_menu.events.EXIT)
         menu.mainloop(self.screen)
 
@@ -144,7 +139,7 @@ class Modelisation:
         if self.selected_polygon is not None:
             self.update_polygon()  # Actualisez la valeur du menu
 
-        self.poisson_disk = PoissonDisk(1300, 800, self.selected_taille*2, 50)
+        self.poisson_disk = PoissonDisk(1300, 800, self.selected_taille*2, 150)
         self.poisson_disk.poisson_disk_sampling()
 
         cercle_pos = pygame.Vector2(400, 400)
@@ -177,7 +172,7 @@ class Modelisation:
                 vertices = polygon.Polygon.create_regular_polygon(self.selected_polygon,
                                                                   self.selected_taille, self.selected_taille,
                                                                   angle=180, pos=(point.x, point.y))
-                pygame.draw.polygon(self.screen, "white", vertices.get_points())
+                pygame.draw.polygon(self.screen, "aqua", vertices.get_points())
             self.update_polygon()
             # Ici tant qu'on a pas appuyé sur la croix pour fermé la fenêtre, on crée un polygon avec une
             # liste de points définies dans init. On update ensuite la fenêtre pour que cela s'affiche correctement

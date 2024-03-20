@@ -60,7 +60,6 @@ class PygamePoissonDisk:
 
     @staticmethod
     def convex_hull(points: List[Tuple[float, float]]) -> List[Tuple[float, float]]:
-        # Si vous avez besoin de redéfinir la méthode convex_hull ici pour quelque raison, vous pouvez le faire
         pass
 
     def run(self):
