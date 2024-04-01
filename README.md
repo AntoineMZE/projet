@@ -69,3 +69,9 @@ déjà existants (Algo décrit dans redblobgames).
 le cercle, puis faire delaunay sur le polygone et la visibilté en temps réél.
 - Pouvoir changer le nombre de points de poissondisk en fonction de la taille de l'écran
 En gros, aucun point ne doit dépasser de l'écran et il faut une génération avec énormément de points.
+
+- _**Utilisation du requirements :**_
+
+```bash
+pip install -r requirements.txt
+```
