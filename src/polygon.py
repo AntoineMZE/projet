@@ -3,6 +3,7 @@ import pygame
 
 DEBUG = False
 
+
 class Polygon:
 
     def __init__(self, points):
@@ -75,3 +76,38 @@ class Polygon:
         if inside:
             return -1  # ignore distance
         return closest
+
+    def intersects(self, p1: pygame.Vector2, p2: pygame.Vector2) -> pygame.Vector2 | None:
+        for i, pa in enumerate(self.get_points()):
+            pb = self.points[(i + 1) % len(self.points)]
+            p3 = pygame.Vector2(pb[0], pb[1])
+            p4 = pygame.Vector2(pa[0], pa[1])
+
+            normal = pygame.Vector2(p4.y - p3.y, -(p4.x - p3.x)).normalize()
+            if normal.dot((p2 - p1).normalize()) > 0:
+                continue
+
+            # D: slope.x * x + slope.y * y + origin = 0
+            # slope_a = pygame.Vector2((p2.y - p1.y), (p2.x - p1.x))
+            # origin_a = (slope_a.y / slope_a.x) * p1.x - p1.y
+            # slope_b = pygame.Vector2((p4.y - p3.y), (p4.x - p3.x))
+            # origin_b = (slope_b.y / slope_b.x) * p3.x - p3.y
+
+            #
+            x_0 = (p1.y - p3.y)
+            x_1 = (p4.y - p3.y)
+            x_2 = (p1.x - p3.x)
+            x_3 = (p2.x - p1.x)
+            x_4 = (p2.y - p1.y)
+            x_5 = (p4.x - p3.x)
+
+            s = ((x_5 * x_0 - x_1 * x_2) / (x_1 * x_3 - x_5 * x_4))
+            p = pygame.Vector2(p1.x + s * x_3, p1.y + s * x_4)
+
+            minx = min(p3.x, p4.x)
+            maxx = max(p3.x, p4.x)
+            miny = min(p3.y, p4.y)
+            maxy = max(p3.y, p4.y)
+            if minx <= p.x <= maxx and miny <= p.y <= maxy:
+                return p
+        return pygame.Vector2(0, 0)

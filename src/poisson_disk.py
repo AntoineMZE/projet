@@ -1,6 +1,6 @@
 import math
 import random
-from src.point import Point
+from point import Point
 
 
 class PoissonDisk:

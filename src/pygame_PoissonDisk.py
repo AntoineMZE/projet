@@ -1,7 +1,7 @@
 import pygame
 from typing import List, Tuple
-from src.triangulation import *
-from src.poisson_disk import PoissonDisk
+from triangulation import *
+from poisson_disk import PoissonDisk
 
 
 
