@@ -92,7 +92,7 @@ class Polygon:
             # origin_a = (slope_a.y / slope_a.x) * p1.x - p1.y
             # slope_b = pygame.Vector2((p4.y - p3.y), (p4.x - p3.x))
             # origin_b = (slope_b.y / slope_b.x) * p3.x - p3.y
-            #
+
             #
             x_0 = (p1.y - p3.y)
             x_1 = (p4.y - p3.y)
