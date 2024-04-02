@@ -2,16 +2,19 @@ import math
 from math import *
 from typing import Tuple, Any, Dict
 import pygame
+from pygame.color import Color
 import pygame_menu
 from point import Point
 from polygon import Polygon
+from pygame import gfxdraw
 from input_manager import InputManager
 import poisson_disk
 # from .pygame_PoissonDisk import PygamePoissonDisk
 from poisson_disk import PoissonDisk
 
 CERCLE_RADIUS = 10
-MAX_DISTANCE = 1000
+MAX_DISTANCE = 2000
+
 
 class Modelisation:
 
@@ -28,6 +31,7 @@ class Modelisation:
         self.clock = pygame.time.Clock()
         self.running = True
         self.screen = pygame.display.set_mode((1300, 800))
+        self.screen_box = Polygon.create_regular_polygon(4, 1300, 800, pos=(650, 400))
         self.width = self.screen.get_width()
         self.height = self.screen.get_height()
         pygame.display.set_caption("Modélisation algorithme de visibilité")
@@ -139,20 +143,27 @@ class Modelisation:
             closest_dist = MAX_DISTANCE
             closest_hit = None
             for polygon in polygons:
-                hit = polygon.intersects(light, light + ray * MAX_DISTANCE)
-                if hit is not None:
-                    # print(f"Hit at {str(hit)}")
-                    dist = (hit - light).length()
-                    if dist < closest_dist:
-                        closest_dist = dist
-                        closest_hit = hit
+                hits = polygon.intersects(light, light + ray * MAX_DISTANCE)
+                for hit in hits:
+                    if hit is not None:
+                        dist = (hit - light).length()
+                        if dist < closest_dist:
+                            closest_dist = dist
+                            closest_hit = hit
+
+            # if not hit, try hitting the screen border
+            if closest_hit is None:
+                hits = self.screen_box.intersects(light, light + ray * MAX_DISTANCE)
+                for hit in hits:
+                    if hit is not None:
+                        dist = (hit - light).length()
+                        if dist < closest_dist:
+                            closest_dist = dist
+                            closest_hit = hit
             hit_point.append((closest_hit, closest_dist))
             if closest_hit is not None:
+                # gfxdraw.line(self.screen, int(light.x), int(light.y), int(closest_hit.x), int(closest_hit.y), Color(255, 0, 0))
                 pygame.draw.line(self.screen, (255, 0, 0), light, closest_hit)
-
-        # for pt in hit_point:
-        #     pygame.draw.circle(self.screen, (255, 255, 255), pt, 3.)
-
 
     def on_play_button_click(self):
         self.play_button_clicked = True
@@ -162,8 +173,8 @@ class Modelisation:
         polygons = []
         for sample in self.poisson_disk.samples:
             vertices = Polygon.create_regular_polygon(self.selected_polygon,
-                                                              self.selected_taille, self.selected_taille,
-                                                              angle=180, pos=(sample.x, sample.y))
+                                                      self.selected_taille, self.selected_taille,
+                                                      angle=180, pos=(sample.x, sample.y))
             polygons.append(vertices)
 
         # lampe
