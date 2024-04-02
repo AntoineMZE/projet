@@ -3,14 +3,13 @@ from math import *
 from typing import Tuple, Any, Dict
 import pygame
 from pygame.color import Color
-import pygame_menu
-from point import Point
-from polygon import Polygon
 from pygame import gfxdraw
-from input_manager import InputManager
-import poisson_disk
-# from .pygame_PoissonDisk import PygamePoissonDisk
-from poisson_disk import PoissonDisk
+import pygame_menu
+
+from src.point import Point
+from src.polygon import Polygon
+from src.input_manager import InputManager
+from src.poisson_disk import PoissonDisk
 
 CERCLE_RADIUS = 10
 MAX_DISTANCE = 2000

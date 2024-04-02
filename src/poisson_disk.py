@@ -1,7 +1,7 @@
 import math
 import random
-from point import Point
 
+from src.point import Point
 
 class PoissonDisk:
     def __init__(self, width, height, radius, k):

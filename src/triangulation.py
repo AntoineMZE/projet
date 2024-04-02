@@ -1,5 +1,5 @@
 from typing import List, Tuple
-from point import Point
+from src.point import Point
 
 
 class Triangulation:
