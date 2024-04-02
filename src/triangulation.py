@@ -1,7 +1,6 @@
 from typing import List, Tuple
 from point import Point
 
-
 class Triangulation:
     def __init__(self, points: List[Point]):
         self.points = points

@@ -1,5 +1,5 @@
-from src.pygame_PoissonDisk import PygamePoissonDisk
-from src.poisson_disk import PoissonDisk
+from pygame_PoissonDisk import PygamePoissonDisk
+from poisson_disk import PoissonDisk
 
 if __name__ == "__main__":
     pygame_renderer = PygamePoissonDisk(800, 600)
