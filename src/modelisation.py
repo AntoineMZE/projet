@@ -160,15 +160,10 @@ class Modelisation:
                             closest_dist = dist
                             closest_hit = hit
             hit_point.append((closest_hit, closest_dist))
+            if closest_hit is not None:
+                # gfxdraw.line(self.screen, int(light.x), int(light.y), int(closest_hit.x), int(closest_hit.y), Color(255, 0, 0))
+                pygame.draw.line(self.screen, (255, 0, 0), light, closest_hit)
 
-        for i in range(len(hit_point)):
-            hit_a,_ = hit_point[i]
-            hit_b,_ = hit_point[(i+1) % len(hit_point)]
-            
-            if hit_a is not None and hit_b is not None:
-                pygame.draw.polygon(self.screen, "gray", [
-                    (hit_a.x, hit_a.y), (hit_b.x, hit_b.y), (light.x, light.y)])
-            # gfxdraw.polygon(self.screen, [hit_a, hit_b, light], Color(255, 255, 255, 100))
 
     def on_play_button_click(self):
         self.play_button_clicked = True
@@ -178,8 +173,8 @@ class Modelisation:
         polygons = []
         for sample in self.poisson_disk.samples:
             vertices = Polygon.create_regular_polygon(self.selected_polygon,
-                                                self.selected_taille, self.selected_taille,
-                                                angle=180, pos=(sample.x, sample.y))
+                                                              self.selected_taille, self.selected_taille,
+                                                              angle=180, pos=(sample.x, sample.y))
             polygons.append(vertices)
 
         # lampe
